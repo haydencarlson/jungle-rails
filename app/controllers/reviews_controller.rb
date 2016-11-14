@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
 
     @review = Review.find params[:id]
     @review.destroy
-    redirect_to [@review.product], notice: 'Product deleted!'
+    redirect_to [@review.product], notice: 'Category Deleted!'
   
   end	
   private
