@@ -20,7 +20,11 @@ RSpec.describe ProductSpec, type: :model do
       @category = Product.new(name: "David", category: nil)
       expect(@category.save).to be false 
     end
+   it 'should show errors' do
 
+     @error = Product.new(name: nil, category: nil)
+     expect(@error.errors.full_messages).to eq(@error.errors.full_messages)
+   end
 
    
   end
