@@ -145,24 +145,4 @@ User.create({
   password_digest: "ruby"
   })
 
-Review.create!({
-  description: Faker::Hipster.paragraph(4),
-  user_id: 1,
-  product_id: 1,
-  rating: 5
-  })
-Review.create!({
-  description: Faker::Hipster.paragraph(4),
-  user_id: 2,
-  product_id: 2,
-  rating: 5
-  })
-Review.create!({
-  description: Faker::Hipster.paragraph(4),
-  user_id: 3,
-  product_id: 3,
-  rating: 5
-  })
-
-
 puts "DONE!"
