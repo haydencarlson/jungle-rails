@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 
     if order.valid?
       empty_cart!
-       ReceiptMailer.receipt_email(order).deliver_now
+       ReceiptMailer.receipt_email(order).deliver_now unless current_user.nil?
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, error: order.errors.full_messages.first
@@ -37,9 +37,8 @@ class OrdersController < ApplicationController
   end
 
   def create_order(stripe_charge)
-
     order = Order.new(
-      email: current_user.email,
+      email: current_user.nil? ? "" : current_user.email,
       total_cents: cart_total,
       stripe_charge_id: stripe_charge.id, # returned by stripe
     )
@@ -47,7 +46,7 @@ class OrdersController < ApplicationController
       if product = Product.find_by(id: product_id)
         quantity = details['quantity'].to_i
         order.line_items.new(
-          product: product,
+          product_id: product.id,
           quantity: quantity,
           item_price: product.price,
           total_price: product.price * quantity

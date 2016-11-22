@@ -23,6 +23,8 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <dt>Average Rating</dt>
+          <dd> <%= @product.average_rating %> </dd>
         </dl>
       </div>
     </div>
@@ -44,6 +46,7 @@
         <th colspan="2">
        
           <span><%= review.rating %></span>
+
         </th>
    
         <th colspan="4">
@@ -54,7 +57,9 @@
     </table>
 
      <span><%= review.description %></span>
+     <% if !current_user.nil? && current_user.id == review.user.id %>
      <%= link_to fa_icon('trash'), product_review_path(@product, review.id), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+     <% end %>
     <br/>
     
     <br/>
@@ -65,7 +70,8 @@
     <%= form_for [@product, @review] do |f| %>
 
     <p>
-      <%= f.label current_user.name %>
+      Logged In: <%= f.label current_user.name %>
+      </br>
       <%= f.label :description %>
         </br>
       <%= f.text_area :description %>

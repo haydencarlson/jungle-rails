@@ -8,6 +8,12 @@
   <p class="description">
     <%= product.description %>
   </p>
+  <% if product.has_reviews? %>
+  <p> Average Rating:
+    <%= product.average_rating %>
+  </p>
+  <% end %>
+
   <footer class="actions">
     <%= link_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary', method: :put do %>
       <%= fa_icon "shopping-cart", text: 'Add' %>
@@ -20,7 +26,7 @@
     <%= humanized_money_with_symbol product.price %>
   </aside>
 
-  <% if product.quantity == 0  %>
+  <% if product.sold_out?  %>
       <aside class="sold-out-banner">
         Sold Out!
       </aside>
